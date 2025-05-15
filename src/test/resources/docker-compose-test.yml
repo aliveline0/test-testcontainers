@@ -1,0 +1,19 @@
+services:
+  merchant_admin_db:
+    image: "public.ecr.aws/docker/library/mysql:8.0"
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-time-zone=Asia/Tokyo
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: 'merchant'
+      MYSQL_USER: 'merchant'
+      MYSQL_PASSWORD: 'merchant_password'
+      MYSQL_ROOT_PASSWORD: 'root'
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
+    volumes:
+      - ./db/mysql/sql:/docker-entrypoint-initdb.d
+  redis:
+    image: "public.ecr.aws/docker/library/redis:6.2.6"
+    ports:
+      - 6379:6379
