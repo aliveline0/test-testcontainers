@@ -1,7 +1,34 @@
 # Getting started with the project
 
-## Setup local environment with Colima
+## Install colima with homebrew
+   Reference site : https://github.com/abiosoft/colima
+1. Download colima
+   ```bash
+   brew install colima
+   ```
 
+## Setup IntelliJ development environment with Colima
+1. Run the colima start command to start the Colima instance.
+   ```bash
+   colima start --network-address
+   ```
+2. Set environment variables
+   Run >   
+   Edit configurations... >    
+   In the lower left corner, click the Edit configuration templates... >   
+   JUnit > Add the following to Environment variables
+   ```bash
+   TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock;TESTCONTAINERS_HOST_OVERRIDE=[docker_IP];DOCKER_HOST=unix:///Users/[home_directory]/.colima/default/docker.sock
+   ```
+   * Get value of docker_IP
+     ```bash
+     colima list
+     ```
+3. Before running the test, check the Gradle settings.
+   - Open > File > Settings > Build, Execution, Deployment > Build Tools > Gradle
+   - Build and run using value should be set to IntelliJ IDEA.
+
+### Without IntelliJ
 1. Open terminal and navigate to the home directory.
 2. Open the zshrc file.
    ```bash
@@ -23,11 +50,3 @@
    ```bash
    colima start
    ```
-
-## testing at IntelliJ
-
-Run > Edit configurations... > 왼쪽 하단의 Edit configuration templates... > JUnit > Environment variables 에 아래 추가
-
-```bash
-TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock;TESTCONTAINERS_HOST_OVERRIDE=192.168.64.3;DOCKER_HOST=unix:///Users/al02531070/.colima/default/docker.sock
-```
